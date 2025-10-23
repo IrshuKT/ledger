@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Ledger Wizard Module</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .overview {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .overview p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .technical-details {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .tech-item {
+            margin-bottom: 2rem;
+        }
+
+        .tech-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-item h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .user-flow {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .flow-steps:before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--light);
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            min-width: 180px;
+            margin-bottom: 2rem;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .step p {
+            font-weight: 500;
+        }
+
+        .view-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .view-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-section .section-title:after {
+            background: white;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-steps {
+                flex-direction: column;
+            }
+
+            .flow-steps:before {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h1>Partner Ledger Wizard</h1>
+            <p class="tagline">A fast, user-friendly way to view and print partner-wise ledger reports in Odoo</p>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2 class="section-title">Module Overview</h2>
+        <div class="overview">
+            <p>The Partner Ledger Wizard module adds a fast, user-friendly way to view and print partner-wise ledger reports in Odoo. It lets you instantly analyze receivable/payable balances, opening balances, and all financial movements for a specific customer or vendor — right from the Partner form.</p>
+            <p>This module is designed for accounting teams and developers who want better visibility and customization of partner-level transactions.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Ledger Balance on Partner Form</h3>
+                <p>Computed real-time from posted move lines</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h3>Ledger Button</h3>
+                <p>Opens a wizard for report generation</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Dynamic Date Range Filtering</h3>
+                <p>Flexible date selection for customized reports</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Smart Transaction Detection</h3>
+                <p>Automatically identifies opening balances and classifies transactions</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-print"></i>
+                </div>
+                <h3>Printable QWeb Report</h3>
+                <p>Generate HTML/PDF reports with clean table layout</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-table"></i>
+                </div>
+                <h3>Clean Table Layout</h3>
+                <p>Includes totals and running balance for easy analysis</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Technical Details</h2>
+        <div class="technical-details">
+            <div class="tech-item">
+                <h3><i class="fas fa-database"></i> Model: res.partner</h3>
+                <ul>
+                    <li>Adds a computed monetary field ledger_balance</li>
+                    <li>Adds a stat button to open the ledger wizard</li>
+                    <li>Quick access to ledger via Partner form view</li>
+                </ul>
+            </div>
+            <div class="tech-item">
+                <h3><i class="fas fa-cogs"></i> Model: partner.ledger.wizard</h3>
+                <ul>
+                    <li>Handles date input and partner selection</li>
+                    <li>Calculates opening balance before start date</li>
+                    <li>Fetches and classifies all partner transactions</li>
+                    <li>Provides structured data to QWeb report</li>
+                </ul>
+            </div>
+            <div class="tech-item">
+                <h3><i class="fas fa-code"></i> XML Views</h3>
+                <ul>
+                    <li>Button added inside Partner form's button box</li>
+                    <li>QWeb report with styled table and totals row</li>
+                    <li>Report action defined for PDF/HTML generation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">User Flow</h2>
+        <div class="user-flow">
+            <div class="flow-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p>Navigate to Contacts → Select a Partner</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p>Click the Ledger stat button (📘 icon)</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>Choose Start Date and End Date</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <p>View or Print the Partner Ledger Report</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">Module Views</h2>
+
+        <div class="view-section">
+            <h3 class="view-title">Form View</h3>
+            <div class="image-container">
+                <img src="/static/description/form_view.png" alt="Form view interface" />
+            </div>
+        </div>
+
+        <div class="view-section">
+            <h3 class="view-title">Kanban View</h3>
+            <div class="image-container">
+                <img src="/static/description/kanban_view.png" alt="Kanban view interface" />
+            </div>
+        </div>
+
+        <div class="view-section">
+            <h3 class="view-title">Ledger View</h3>
+            <div class="image-container">
+                <img src="/static/description/ledger.png" alt="Ledger view interface" />
+            </div>
+        </div>
+
+        <div class="view-section">
+            <h3 class="view-title">Ledger Wizard View</h3>
+            <div class="image-container">
+                <img src="/static/description/ledger_wizard.png" alt="Ledger wizard interface" />
+            </div>
+        </div>
+
+        <div class="view-section">
+            <h3 class="view-title">List View</h3>
+            <div class="image-container">
+                <img src="/static/description/list_view.png" alt="List view interface" />
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <p>Have questions or need support with the Partner Ledger Wizard module?</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact.ktcs@gmail.com</span>
+                </div>
+<!--                <div class="contact-item">-->
+<!--                    <i class="fas fa-phone"></i>-->
+<!--                    <span></span>-->
+<!--                </div>-->
+<!--                <div class="contact-item">-->
+<!--                    <i class="fas fa-globe"></i>-->
+<!--                    <span>www.odoomodules.com</span>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2022 Partner Ledger Wizard Module. All rights reserved.</p>
+            <p>Designed for Odoo Community and Enterprise Editions</p>
+        </div>
+    </footer>
+</body>
+</html>
