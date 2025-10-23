@@ -1,5 +1,5 @@
 {
-    'name': "Partner Ledger",
+    'name': "Ledger Smart Menu",
 
     'summary': 'Partner ledger quick view with running balance',
     'description': """
